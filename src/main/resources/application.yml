@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:zilchtest;INIT=RUNSCRIPT FROM 'classpath:scripts/init.sql'
+    driverClassName: org.h2.Driver
+    username: test
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        enable_lazy_load_no_trans: true
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          factory_class: org.redisson.hibernate.RedissonRegionFactory
+          redisson:
+            fallback: true
+            config: redisson.yml
+  h2:
+    console:
+      enabled: true
+  cache:
+    type: redis
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  error:
+    include-message: always
